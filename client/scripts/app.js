@@ -1,9 +1,9 @@
 //  DESCRIBE 'chatterbox' //
 const app = {
-
+  server: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages'
 };
 
-$(document).ready(function(){
+$(document).ready(function() {
 
 
   // DESCRIBE 'init'  //
@@ -11,6 +11,12 @@ $(document).ready(function(){
   app.init = function () {
     $('#chats').on('click', '.username', app.handleUsernameClick);
     $('#send').on('submit', '.submit', app.handleSubmit);
+    app.fetch();
+    app.send({
+      username: 'Mel Brooks',
+      text: 'Never underestimate the power of the Schwartz!',
+      roomname: 'lobby'
+    });
   };
 
 
@@ -22,7 +28,7 @@ $(document).ready(function(){
       url: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages',
       type: 'POST',
       data: JSON.stringify(message),
-      contextType: 'application/json',
+      contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent');
       },
@@ -35,8 +41,9 @@ $(document).ready(function(){
   //  DESCRIBE 'fetching'  //
   app.fetch = function() {
     $.ajax({
-      server: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages',
+      url: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
+      contentType: 'application/json',
       success: function () {
         console.log('Success');
       },
@@ -76,4 +83,5 @@ $(document).ready(function(){
     return true;
   };
 
+  app.init();
 });
