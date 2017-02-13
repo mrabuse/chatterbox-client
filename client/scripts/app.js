@@ -26,7 +26,7 @@ app.send = function(message) {
   });
 };
 
-//  DESCRIBE 'fething'  //
+//  DESCRIBE 'fetching'  //
 app.fetch = function(string) {
   $.ajax({
     server: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages',
@@ -40,7 +40,7 @@ app.fetch = function(string) {
   });
 };
 
-//  TODO DESCRIBE 'chatroom behavior'  //
+//  TODO: DESCRIBE 'chatroom behavior'  //
 
 app.clearMessages = function() {
   // TODO: should be able to clear messages from the DOM
@@ -55,7 +55,7 @@ app.renderRoom = function(room) {
 };
 
 
-//  TODO DESCRIBE 'events'  //
+//  TODO: DESCRIBE 'events'  //
 
 app.handleUsernameClick = function() {
   // TODO: should add a friend upon clicking their username
