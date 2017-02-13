@@ -3,13 +3,14 @@ const app = {
 
 };
 
-$(document).ready(function () {
+$(document).ready(function(){
 
 
   // DESCRIBE 'init'  //
 
   app.init = function () {
     $('#chats').on('click', '.username', app.handleUsernameClick);
+    $('#send').on('submit', '.submit', app.handleSubmit);
   };
 
 
@@ -67,10 +68,12 @@ $(document).ready(function () {
 
   app.handleUsernameClick = function() {
     // TODO: should add a friend upon clicking their username
-    return true;
+    $(this).attr('id', 'friend');
   };
 
   app.handleSubmit = function() {
     // TODO: should try to send a message upon clicking submit
+    return true;
   };
+
 });
