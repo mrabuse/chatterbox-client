@@ -9,10 +9,13 @@ $(document).ready(function() {
   // DESCRIBE 'init'  //
 
   app.init = function () {
-    $('#chats').on('click', '.username', app.handleUsernameClick);
+    $('#chats').on('click', '.username', function(data) {
+      console.log(data);
+      var node = data.currentTarget;
+      app.handleUsernameClick(node);
+    });
     $('#send').on('submit', '.submit', app.handleSubmit);
-    var messages = app.fetch();
-    console.log(messages);
+    app.fetch();
   };
 
   //  DESCRIBE 'app behavior' //
@@ -25,7 +28,7 @@ $(document).ready(function() {
       data: JSON.stringify(message),
       contentType: 'application/json',
       success: function (data) {
-        console.log('chatterbox: Message sent');
+        console.log('chatterbox: Message sent', data);
       },
       error: function (data) {
         console.log('chatterbox: Failed to send message', data);
@@ -40,8 +43,10 @@ $(document).ready(function() {
       type: 'GET',
       contentType: 'application/json',
       success: function (data) {
-        console.log('Success');
-        return data;
+        var messages = data.results;
+        messages.forEach(function(message) {
+          app.renderMessage(message);
+        });
       },
       error: function () {
         console.log('chatterbox: Failed to get');
@@ -58,7 +63,7 @@ $(document).ready(function() {
 
   app.renderMessage = function(message) {
     // TODO: should be able to add messages to the DOM
-    $('#chats').append('<span class=username' + ' data=' + message.roomname + '>' + message.text + '</span>');
+    $('#chats').append('<div class="chat ' + message.username + '" data=' + message.roomname + '>' + '<span class="username ' + message.username + '"><a href="#">' + message.username + ': </a></span>' + message.text + '</div>');
   };
 
   app.renderRoom = function(room) {
@@ -69,9 +74,11 @@ $(document).ready(function() {
 
   //  TODO: DESCRIBE 'events'  //
 
-  app.handleUsernameClick = function() {
+  app.handleUsernameClick = function(element) {
     // TODO: should add a friend upon clicking their username
-    $(this).attr('id', 'friend');
+    var classes = $(element).attr('class');
+    var username = classes.split(' ')[1];
+    $('.' + username).addClass('friend');
   };
 
   app.handleSubmit = function() {
