@@ -10,11 +10,10 @@ $(document).ready(function() {
 
   app.init = function () {
     $('#chats').on('click', '.username', function(data) {
-      console.log(data);
       var node = data.currentTarget;
       app.handleUsernameClick(node);
     });
-    $('#send').on('submit', '.submit', app.handleSubmit);
+    $('input').on('submit', '.submit', app.handleSubmit);
     app.fetch();
   };
 
@@ -71,7 +70,6 @@ $(document).ready(function() {
     $('#roomSelect').append('<div>' + room + ' </div>');
   };
 
-
   //  TODO: DESCRIBE 'events'  //
 
   app.handleUsernameClick = function(element) {
@@ -83,7 +81,7 @@ $(document).ready(function() {
 
   app.handleSubmit = function() {
     // TODO: should try to send a message upon clicking submit
-    return true;
+
   };
 
   app.init();
