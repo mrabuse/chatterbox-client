@@ -11,14 +11,9 @@ $(document).ready(function() {
   app.init = function () {
     $('#chats').on('click', '.username', app.handleUsernameClick);
     $('#send').on('submit', '.submit', app.handleSubmit);
-    app.fetch();
-    app.send({
-      username: 'Mel Brooks',
-      text: 'Never underestimate the power of the Schwartz!',
-      roomname: 'lobby'
-    });
+    var messages = app.fetch();
+    console.log(messages);
   };
-
 
   //  DESCRIBE 'app behavior' //
 
@@ -40,12 +35,13 @@ $(document).ready(function() {
 
   //  DESCRIBE 'fetching'  //
   app.fetch = function() {
-    $.ajax({
+    return $.ajax({
       url: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
       contentType: 'application/json',
-      success: function () {
+      success: function (data) {
         console.log('Success');
+        return data;
       },
       error: function () {
         console.log('chatterbox: Failed to get');
